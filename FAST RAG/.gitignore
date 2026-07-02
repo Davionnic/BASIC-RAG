@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# Local data
+hf_cache/
+qdrant_storage/
+.env
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

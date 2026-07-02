@@ -1,0 +1,8 @@
+streamlit>=1.40
+llama-index-core>=0.12
+llama-index-embeddings-huggingface>=0.4
+llama-index-llms-sambanovasystems>=0.2
+qdrant-client>=1.16
+sseclient-py>=1.8
+python-dotenv>=1.0
+sentence-transformers>=3.0
