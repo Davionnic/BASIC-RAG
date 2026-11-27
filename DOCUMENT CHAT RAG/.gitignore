@@ -5,6 +5,9 @@ __pycache__/
 venv/
 env/
 
+# secrets
+.env
+
 # OS / editor
 .DS_Store
 .vscode/
