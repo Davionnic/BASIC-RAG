@@ -5,6 +5,9 @@ __pycache__/
 venv/
 env/
 
+# secrets
+.env
+
 # RAG persisted index
 storage/
 
