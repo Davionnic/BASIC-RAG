@@ -14,7 +14,7 @@ A collection of Retrieval-Augmented Generation (RAG) tools. Each project lives i
 ## Repository layout
 
 ```
-RAGS/
+BASIC-RAG/
 ├── SIMPLE RAG/           # Basic local RAG pipeline (LlamaIndex + Ollama)
 ├── DOCUMENT CHAT RAG/    # Streamlit document chat (LangChain + FAISS + Ollama)
 ├── FAST RAG/             # SambaNova + LlamaIndex + Qdrant + Streamlit
