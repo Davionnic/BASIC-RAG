@@ -11,6 +11,60 @@ A collection of Retrieval-Augmented Generation (RAG) tools. Each project lives i
 | [FAST RAG](FAST%20RAG/README.md) | Fast cloud RAG with SambaNova Llama 3.3, LlamaIndex, Qdrant, Streamlit |
 | [GITHUB RAG](GITHUB%20RAG/README.md) | Chat with a GitHub repo via GitIngest + LlamaIndex, local (Ollama) or OpenAI |
 
+## How it works
+
+### SIMPLE RAG
+
+```mermaid
+flowchart TD
+  data["Documents in data/"] --> reader[LlamaIndex SimpleDirectoryReader]
+  reader --> index["VectorStoreIndex with Ollama nomic-embed-text"]
+  index --> persist["Persist to storage/"]
+  question[Question] --> query["Query engine, top 3 chunks"]
+  persist --> query
+  query --> llm["Ollama gemma3:4b"]
+  llm --> answer["Answer plus source file names and scores"]
+```
+
+### DOCUMENT CHAT RAG
+
+```mermaid
+flowchart TD
+  upload["Upload PDF, TXT, or MD"] --> load["PyPDFLoader or TextLoader"]
+  load --> split["LangChain splitter, chunk 1000, overlap 150"]
+  split --> faiss["FAISS with Ollama nomic-embed-text"]
+  question[Question] --> retrieve["Retrieve top 4 chunks"]
+  faiss --> retrieve
+  retrieve --> llm["ChatOllama, default llama3.1:8b"]
+  llm --> answer["Streamlit streams the answer and cites source file names"]
+```
+
+### FAST RAG
+
+```mermaid
+flowchart TD
+  pdf["Upload a PDF"] --> reader[LlamaIndex SimpleDirectoryReader]
+  reader --> embed["Embed with BAAI/bge-large-en-v1.5"]
+  embed --> qdrant["Store in Qdrant, local or QDRANT_URL"]
+  question[Question] --> retrieve["Retrieve top 2 passages"]
+  qdrant --> retrieve
+  retrieve --> llm["SambaNova Meta-Llama-3.3-70B-Instruct"]
+  llm --> answer["Stream the answer in Streamlit"]
+```
+
+### GITHUB RAG
+
+```mermaid
+flowchart TD
+  url["GitHub repo URL"] --> ingest[GitIngest markdown digest]
+  ingest --> split["SentenceSplitter, chunk 1024, overlap 100"]
+  split --> index["LlamaIndex index with BAAI/bge-small-en-v1.5"]
+  question[Question] --> query["Query engine, top 4 chunks"]
+  index --> query
+  query --> llm["Ollama llama3.1:8b or OpenAI gpt-4o-mini"]
+  llm --> answer["Stream the answer in Streamlit"]
+```
+
 ## Repository layout
 
 ```
